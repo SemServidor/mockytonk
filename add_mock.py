@@ -14,7 +14,8 @@ def main(event, context):
     id = str(uuid.uuid4())
 
     dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
-    table = dynamodb.Table('mockytonk-dev')
+    stage = event["requestContext"]["stage"]
+    table = dynamodb.Table('mockytonk-{}'.format(stage))
     table.put_item(
         Item={
             'id': id,
@@ -34,7 +35,7 @@ def main(event, context):
         },
         "id": id,
         "secretKey": secret_key,
-        "url": "https://{}/dev/proxy/{}".format(event["requestContext"]["domainName"], id)
+        "url": "https://{}/{}/proxy/{}".format(event["requestContext"]["domainName"], stage, id)
     }
     response = {
         "statusCode": 201,

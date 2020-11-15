@@ -5,7 +5,8 @@ import boto3
 def main(event, context):
     dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
 
-    table = dynamodb.Table('mockytonk-dev')
+    stage = event["requestContext"]["stage"]
+    table = dynamodb.Table('mockytonk-{}'.format(stage))
 
     print(event["pathParameters"]["proxy"])
     response = table.get_item(Key={'id': event["pathParameters"]["proxy"], 'sort': event["pathParameters"]["proxy"]})

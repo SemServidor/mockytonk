@@ -9,7 +9,8 @@ def main(event, context):
     secretKey = event["pathParameters"]["secretKey"]
 
     dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
-    table = dynamodb.Table('mockytonk-dev')
+    stage = event["requestContext"]["stage"]
+    table = dynamodb.Table('mockytonk-{}'.format(stage))
     try:
         response = table.delete_item(
             Key={
