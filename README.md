@@ -20,6 +20,22 @@ Invoke using the URL received in the previous response:
 curl https://api.mockytonk.com/proxy/5691be86-5226-466c-9115-1cda88e13e07
 ```
 
+### Secret Key
+
+The secret key is the way to secure your mocks. It's an optional parameter. If you don't set a secret key, we create one automatically.
+But, if you want to use a specific secret key, you just need to set in your request body, just like that:
+
+```bash
+curl -X POST https://api.mockytonk.com/mock -d '{"statusCode": 200, "response": { "message": "Hello World!" }, "headers": { "X-Test": "Token" }, "secretKey": "f0467c90-18cf-49bf-8b72-8d0abd352a6b"}' -H 'Content-Type: application/json'
+```
+
+### Delete
+
+To delete a mock you must use both ID and Secret Key:
+```bash
+curl -X DELETE https://api.mockytonk.com/mock/5691be86-5226-466c-9115-1cda88e13e07/f0467c90-18cf-49bf-8b72-8d0abd352a6b
+```
+
 ## Curiosity
 
 The name Mockytonk is inspired on Honky Tonk, because the creator (@epiresdasilva) is a big fan of country music.
