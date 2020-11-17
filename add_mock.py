@@ -11,12 +11,16 @@ def main(event, context):
 
     put_item(event, secret_key, id)
 
+    mock_contract = {
+        "statusCode": body["statusCode"]
+    }
+    if "response" in body:
+        mock_contract["response"] = body["response"]
+    if "headers" in body:
+        mock_contract["headers"] = body["headers"]
+
     response_body = {
-        "mockContract": {
-            "statusCode": body["statusCode"],
-            "response": body["response"],
-            "headers": body["headers"]
-        },
+        "mockContract": mock_contract,
         "id": id,
         "secretKey": secret_key,
         "url": get_proxy_url(event, id)
@@ -35,16 +39,20 @@ def put_item(event, secret_key, id):
     dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
     stage = event["requestContext"]["stage"]
 
+    item = {
+        'id': id,
+        'sort': id,
+        'secretKey': secret_key,
+        'statusCode': body["statusCode"]
+    }
+    if "response" in body:
+        item["response"] = body["response"]
+    if "headers" in body:
+        item["headers"] = body["headers"]
+
     table = dynamodb.Table('mockytonk-{}'.format(stage))
     table.put_item(
-        Item={
-            'id': id,
-            'sort': id,
-            'secretKey': secret_key,
-            'statusCode': body["statusCode"],
-            'response': body["response"],
-            'headers': body["headers"]
-        }
+        Item=item
     )
 
 

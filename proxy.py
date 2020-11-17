@@ -13,9 +13,11 @@ def main(event, context):
     item = response['Item']
 
     response = {
-        "statusCode": item["statusCode"],
-        "body": json.dumps(item["response"]),
-        "headers": item["headers"]
+        "statusCode": item["statusCode"]
     }
+    if "response" in item:
+        response["body"] = json.dumps(item["response"])
+    if "headers" in item:
+        response["headers"] = item["headers"]
 
     return response
