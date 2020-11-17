@@ -1,5 +1,7 @@
 # Mockytonk
 
+![](images/mockytonk-logo.png)
+
 **Mocking easy like listening your favorite song**
 
 Mockytonk is a service and also an open-source application to create mocked APIs easily.
