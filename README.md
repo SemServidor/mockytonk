@@ -1,5 +1,7 @@
 # Mockytonk
 
+[Leia essa documentação em português](README_pt.md)
+
 ![](images/mockytonk-logo.png)
 
 **Mocking easy like listening your favorite song**
